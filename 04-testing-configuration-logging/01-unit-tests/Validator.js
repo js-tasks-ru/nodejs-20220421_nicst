@@ -6,9 +6,15 @@ module.exports = class Validator {
   validate(obj) {
     const errors = [];
 
+    if (typeof obj !== 'object' || obj === null) {
+      errors.push({
+        field: '-',
+        error: `expected not empty object, got ${obj === null ? null : typeof obj}`,
+      });
+    }
+
     for (const field of Object.keys(this.rules)) {
       const rules = this.rules[field];
-
       const value = obj[field];
       const type = typeof value;
 
