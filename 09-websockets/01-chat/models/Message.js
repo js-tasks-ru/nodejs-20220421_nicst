@@ -24,4 +24,14 @@ const messageSchema = new mongoose.Schema({
 
 });
 
+messageSchema.method('toClient', function() {
+  const obj = this.toObject();
+
+  // Rename fields
+  obj.id = obj._id;
+  delete obj._id;
+
+  return obj;
+});
+
 module.exports = connection.model('Message', messageSchema);
